@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADEQUI - Plataforma Educativa de Química</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-flask"></i>
+                <span>ADEQUI</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Inicio</a></li>
+                <li><a href="#history" class="nav-link">Historia</a></li>
+                <li><a href="#branches" class="nav-link">Ramas</a></li>
+                <li><a href="#formulas" class="nav-link">Fórmulas</a></li>
+                <li><a href="#problems" class="nav-link">Problemas</a></li>
+                <li><a href="#periodic-table" class="nav-link">Tabla Periódica</a></li>
+                <li><a href="#about" class="nav-link">Sobre el Proyecto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Explora la química de una forma diferente</h1>
+                <p>Aprende, calcula y comprende los problemas químicos paso a paso.</p>
+                <div class="hero-buttons">
+                    <a href="#branches" class="btn btn-primary">Explorar Química</a>
+                    <a href="#problems" class="btn btn-secondary">Resolver un Problema</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" onclick="navigateTo('history')">
+                <div class="feature-icon">🧪</div>
+                <h3>Historia de la Química</h3>
+                <p>Descubre la evolución de la química a través del tiempo</p>
+            </div>
+            <div class="feature-card" onclick="navigateTo('branches')">
+                <div class="feature-icon">⚗️</div>
+                <h3>Ramas de la Química</h3>
+                <p>Explora las diferentes áreas de la química</p>
+            </div>
+            <div class="feature-card" onclick="navigateTo('formulas')">
+                <div class="feature-icon">📐</div>
+                <h3>Fórmulas</h3>
+                <p>Busca y aprende fórmulas químicas</p>
+            </div>
+            <div class="feature-card" onclick="navigateTo('problems')">
+                <div class="feature-icon">🧮</div>
+                <h3>Resolver Problemas</h3>
+                <p>Calculadora interactiva de problemas químicos</p>
+            </div>
+            <div class="feature-card" onclick="navigateTo('periodic-table')">
+                <div class="feature-icon">🔬</div>
+                <h3>Tabla Periódica</h3>
+                <p>Explora los elementos químicos interactivamente</p>
+            </div>
+        </div>
+
+        <div class="how-it-works">
+            <h2>Cómo Funciona</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Elige una categoría</h3>
+                    <p>Selecciona el tipo de problema que quieres resolver</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Ingresa los datos</h3>
+                    <p>Introduce los valores conocidos del problema</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Obtén la solución</h3>
+                    <p>Recibe una explicación paso a paso del resultado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="section">
+        <div class="container">
+            <h2 class="section-title">Historia de la Química</h2>
+            <div class="timeline" id="timelineContainer">
+                <!-- Timeline items will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Branches Section -->
+    <section id="branches" class="section">
+        <div class="container">
+            <h2 class="section-title">Ramas de la Química</h2>
+            <div class="branches-grid" id="branchesContainer">
+                <!-- Branch cards will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulas Section -->
+    <section id="formulas" class="section">
+        <div class="container">
+            <h2 class="section-title">Fórmulas Químicas</h2>
+            <div class="search-container">
+                <input type="text" id="formulaSearch" placeholder="Buscar fórmulas..." class="search-input">
+                <select id="formulaCategoryFilter" class="category-filter">
+                    <option value="">Todas las categorías</option>
+                    <option value="Química General">Química General</option>
+                    <option value="Fisicoquímica">Fisicoquímica</option>
+                    <option value="Química Analítica">Química Analítica</option>
+                    <option value="Electroquímica">Electroquímica</option>
+                    <option value="Cinética Química">Cinética Química</option>
+                    <option value="Termodinámica">Termodinámica</option>
+                </select>
+            </div>
+            <div class="formulas-grid" id="formulasContainer">
+                <!-- Formula cards will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section id="problems" class="section">
+        <div class="container">
+            <h2 class="section-title">Calculadora de Problemas</h2>
+            
+            <div class="problem-selector">
+                <h3>¿Qué tipo de problema quieres resolver?</h3>
+                <div class="problem-categories" id="problemCategories">
+                    <button class="category-btn" data-category="molarity">Molaridad</button>
+                    <button class="category-btn" data-category="moles">Moles</button>
+                    <button class="category-btn" data-category="molar-mass">Masa Molar</button>
+                    <button class="category-btn" data-category="density">Densidad</button>
+                    <button class="category-btn" data-category="dilution">Diluciones</button>
+                    <button class="category-btn" data-category="ideal-gas">Gases Ideales</button>
+                    <button class="category-btn" data-category="ph">pH</button>
+                    <button class="category-btn" data-category="poh">pOH</button>
+                    <button class="category-btn" data-category="mass">Masa</button>
+                    <button class="category-btn" data-category="normality">Normalidad</button>
+                    <button class="category-btn" data-category="ppm">PPM</button>
+                    <button class="category-btn" data-category="percent-pv">% P/V</button>
+                    <button class="category-btn" data-category="percent-pp">% P/P</button>
+                    <button class="category-btn" data-category="percent-vv">% V/V</button>
+                    <button class="category-btn" data-category="stoichiometry">Estequiometría</button>
+                    <button class="category-btn" data-category="boyle-law">Ley de Boyle</button>
+                    <button class="category-btn" data-category="charles-law">Ley de Charles</button>
+                    <button class="category-btn" data-category="gay-lussac-law">Ley de Gay-Lussac</button>
+                </div>
+            </div>
+
+            <div class="problem-input-container" id="problemInputContainer" style="display: none;">
+                <div class="problem-form" id="problemForm">
+                    <!-- Form fields will be loaded dynamically -->
+                </div>
+                <button class="btn btn-primary" id="solveButton">Resolver Problema</button>
+            </div>
+
+            <div class="solution-container" id="solutionContainer" style="display: none;">
+                <!-- Solution will be displayed here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Periodic Table Section -->
+    <section id="periodic-table" class="section">
+        <div class="container">
+            <h2 class="section-title">Tabla Periódica</h2>
+            <div class="search-container">
+                <input type="text" id="elementSearch" placeholder="Buscar elemento..." class="search-input">
+            </div>
+            <div class="periodic-table" id="periodicTableContainer">
+                <!-- Periodic table will be loaded dynamically -->
+            </div>
+            <div class="element-details" id="elementDetails" style="display: none;">
+                <!-- Element details will be shown here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre el Proyecto</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>ADEQUI</h3>
+                    <p>ADEQUI es una plataforma educativa interactiva diseñada para facilitar el aprendizaje de la química. Nuestro objetivo es proporcionar herramientas que ayuden a los estudiantes a comprender conceptos químicos complejos de manera visual y práctica.</p>
+                    
+                    <h4>Redes oficiales:</h4>
+                    <div class="social-links" aria-label="Redes sociales oficiales de ADEQUI">
+                        <a class="social-link instagram" href="https://www.instagram.com/adequiuasd"
+                           target="_blank" rel="noopener noreferrer" aria-label="Instagram de ADEQUI">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a class="social-link facebook" href="https://www.facebook.com/share/1DrWLAgSpj/"
+                           target="_blank" rel="noopener noreferrer" aria-label="Facebook de ADEQUI">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                            <span>Facebook</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="about-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 ADEQUI. Plataforma educativa de química.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
