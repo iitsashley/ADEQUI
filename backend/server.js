@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const path = require('path');
 require('dotenv').config();
 
@@ -40,14 +39,6 @@ app.use(cors({
 // Procesamiento de solicitudes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 100
-});
-
-app.use('/api/', limiter);
 
 // Ruta de prueba
 app.get('/api/health', (req, res) => {
