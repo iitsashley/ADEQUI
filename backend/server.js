@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -8,24 +9,49 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
+
 // Middleware
 app.use(helmet({
   contentSecurityPolicy: false,
   crossOriginEmbedderPolicy: false
 }));
-app.use(cors());
+
+// CORS: permitir frontend publicado y desarrollo local
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error('Origen no permitido por CORS'));
+  }
+}));
+
+// Procesamiento de solicitudes
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  limit: 100
 });
+
 app.use('/api/', limiter);
 
-// Serve static files from frontend
-app.use(express.static(path.join(__dirname, '../frontend')));
+// Ruta de prueba
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    application: 'ADEQUI',
+    message: 'API funcionando correctamente'
+  });
+});
 
 // API Routes
 app.use('/api/solve', require('./routes/solveRoutes'));
@@ -34,24 +60,37 @@ app.use('/api/branches', require('./routes/branchRoutes'));
 app.use('/api/history', require('./routes/historyRoutes'));
 app.use('/api/periodic-table', require('./routes/periodicTableRoutes'));
 
-// Serve frontend for all non-API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+
+ // Ruta del frontend
+const frontendPath = path.join(__dirname, '../frontend');
+
+// Servir archivos HTML, CSS, JS e imágenes
+app.use(express.static(frontendPath));
+
+// Mostrar ADEQUI al entrar a la página principal
+app.get('/', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
-// Error handling middleware
+
+// Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
+
   res.status(500).json({
     error: 'Something went wrong!',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+    message: process.env.NODE_ENV === 'development'
+      ? err.message
+      : 'Internal server error'
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`ChemiaLab server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-});
+// Run server locally only
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`ADEQUI server running on port ${PORT}`);
+  });
+}
 
+// Exportar Express para Vercel
 module.exports = app;
