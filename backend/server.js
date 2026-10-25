@@ -9,6 +9,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configuración para el proxy de Vercel
+app.set('trust proxy', 1);
+
 
 
 // Middleware
@@ -19,7 +22,9 @@ app.use(helmet({
 
 // CORS: permitir frontend publicado y desarrollo local
 const allowedOrigins = [
+  'http://localhost:3000',
   'http://localhost:5173',
+  'https://adequi.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
