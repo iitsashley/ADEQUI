@@ -1,0 +1,32 @@
+{
+  "name": "chemialab",
+  "version": "1.0.0",
+  "description": "Plataforma web educativa interactiva para aprender química",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "keywords": [
+    "chemistry",
+    "education",
+    "calculator",
+    "learning"
+  ],
+  "author": "ChemiaLab",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "sqlite3": "^5.1.6",
+    "dotenv": "^16.3.1",
+    "express-rate-limit": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.7": true
+  }
+}
